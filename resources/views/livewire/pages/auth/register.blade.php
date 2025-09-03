@@ -12,6 +12,8 @@ new #[Layout('layouts.guest')] class extends Component
 {
     public string $name = '';
     public string $email = '';
+    public string $user_type = 'user';
+    public string $cpf = '';
     public string $password = '';
     public string $password_confirmation = '';
 
@@ -23,6 +25,8 @@ new #[Layout('layouts.guest')] class extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'user_type' => ['required', 'string', 'in:user,shopkeeper'],
+            'cpf' => ['required', 'string', 'max:14', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -32,7 +36,12 @@ new #[Layout('layouts.guest')] class extends Component
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $redirectUser = match ($user->user_type) {
+            'shopkeeper' => route('index-shopkeeper'),
+            default => route('index-user'),
+        };
+
+        $this->redirect($redirectUser, navigate: true);
     }
 }; ?>
 
@@ -50,6 +59,25 @@ new #[Layout('layouts.guest')] class extends Component
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="user_type" :value="__('Tipo de Usuário')" />
+
+            <select wire:model="user_type" id="user_type" name="user_type" class="block mt-1 w-full">
+                <option value="user">Padrão</option>
+                <option value="shopkeeper">Lojista</option>
+            </select>
+
+            <x-input-error :messages="$errors->get('user_type')" class="mt-2" />
+        </div>
+
+
+        {{-- Falta converte CPF --}}
+        <div class="mt-4">
+            <x-input-label for="cpf" :value="__('CPF')" />
+            <x-text-input wire:model="cpf" id="cpf" class="block mt-1 w-full" type="text" name="cpf" required autofocus autocomplete="cpf" />
+            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
         </div>
 
         <!-- Password -->

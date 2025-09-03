@@ -20,7 +20,14 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $user = auth()->user();
+
+        $url = match ($user->user_type) {
+            'shopkeeper' => route('index-shopkeeper'),
+            default      => route('index-user'),
+        };
+
+        $this->redirectIntended(default: $url, navigate: true);
     }
 }; ?>
 

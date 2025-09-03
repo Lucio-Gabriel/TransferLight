@@ -29,7 +29,14 @@ new #[Layout('layouts.guest')] class extends Component
 
         session(['auth.password_confirmed_at' => time()]);
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $user = auth()->user();
+
+        $url = match ($user->user_type) {
+            'shopkeeper' => route('index-shopkeeper'),
+            default      => route('index-user'),
+        };
+
+        $this->redirectIntended(default: $url, navigate: true);
     }
 }; ?>
 

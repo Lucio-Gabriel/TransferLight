@@ -12,27 +12,41 @@ test('login screen can be rendered', function () {
 });
 
 test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'email'     => 'test@example.com',
+        'password'  => 'password',
+        'user_type' => 'user',
+        'cpf'       => '12345678900',
+    ]);
 
     $component = Volt::test('pages.auth.login')
-        ->set('form.email', $user->email)
-        ->set('form.password', 'password');
+        ->set('form.email', 'test@example.com')
+        ->set('form.password', 'password')
+        ->set('form.user_type', 'user')
+        ->set('form.cpf', '12345678900');
 
     $component->call('login');
 
     $component
         ->assertHasNoErrors()
-        ->assertRedirect(route('dashboard', absolute: false));
+        ->assertRedirect(route('index-user', absolute: false));
 
     $this->assertAuthenticated();
 });
 
 test('users can not authenticate with invalid password', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'email'     => 'test@example.com',
+        'password'  => 'password',
+        'user_type' => 'user',
+        'cpf'       => '12345678900',
+    ]);
 
     $component = Volt::test('pages.auth.login')
-        ->set('form.email', $user->email)
-        ->set('form.password', 'wrong-password');
+        ->set('form.email', 'test@example.com')
+        ->set('form.password', 'wrong-password')
+        ->set('form.user_type', 'user')
+        ->set('form.cpf', '12345678900');
 
     $component->call('login');
 
@@ -48,7 +62,7 @@ test('navigation menu can be rendered', function () {
 
     $this->actingAs($user);
 
-    $response = $this->get('/dashboard');
+    $response = $this->get('/index-shopkeeper');
 
     $response
         ->assertOk()

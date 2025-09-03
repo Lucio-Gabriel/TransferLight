@@ -72,11 +72,9 @@ new #[Layout('layouts.guest')] class extends Component
             <x-input-error :messages="$errors->get('user_type')" class="mt-2" />
         </div>
 
-
-        {{-- Falta converte CPF --}}
         <div class="mt-4">
             <x-input-label for="cpf" :value="__('CPF')" />
-            <x-text-input wire:model="cpf" id="cpf" class="block mt-1 w-full" type="text" name="cpf" required autofocus autocomplete="cpf" />
+            <x-text-input wire:model="cpf" id="cpf" class="block mt-1 w-full" type="text" name="cpf" required autocomplete="cpf" x-mask="999.999.999-99" />
             <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
         </div>
 

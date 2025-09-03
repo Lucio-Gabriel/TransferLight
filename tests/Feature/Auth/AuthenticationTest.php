@@ -13,10 +13,10 @@ test('login screen can be rendered', function () {
 
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => 'password',
+        'email'     => 'test@example.com',
+        'password'  => 'password',
         'user_type' => 'user',
-        'cpf' => '12345678900'
+        'cpf'       => '12345678900',
     ]);
 
     $component = Volt::test('pages.auth.login')
@@ -36,10 +36,10 @@ test('users can authenticate using the login screen', function () {
 
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => 'password',
+        'email'     => 'test@example.com',
+        'password'  => 'password',
         'user_type' => 'user',
-        'cpf' => '12345678900'
+        'cpf'       => '12345678900',
     ]);
 
     $component = Volt::test('pages.auth.login')

@@ -17,10 +17,10 @@ test('confirm password screen can be rendered', function () {
 
 test('password can be confirmed', function () {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => 'password',
+        'email'     => 'test@example.com',
+        'password'  => 'password',
         'user_type' => 'user',
-        'cpf' => '12345678900'
+        'cpf'       => '12345678900',
     ]);
 
     $this->actingAs($user);

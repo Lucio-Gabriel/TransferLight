@@ -15,7 +15,7 @@ new class extends Component {
 <div>
     <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
@@ -29,9 +29,9 @@ new class extends Component {
                             {{ __('visão geral') }}
                         </x-nav-link>
 
-                         <x-nav-link :href="route('index-shopkeeper')" :active="request()->routeIs('index-shopkeeper')" wire:navigate>
+                         {{-- <x-nav-link :href="route('index-shopkeeper')" :active="request()->routeIs('index-shopkeeper')" wire:navigate>
                             {{ __('relatórios') }}
-                        </x-nav-link>
+                        </x-nav-link> --}}
                     </div>
                 </div>
 

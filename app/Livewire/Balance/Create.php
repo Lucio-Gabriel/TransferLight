@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Balance;
 
 use App\Models\Balance;
 use Illuminate\View\View;
@@ -42,6 +42,6 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.user.create');
+        return view('livewire.balance.create');
     }
 }

@@ -12,72 +12,41 @@ class Create extends Component
 {
     public string $name = '';
     public string $email =  '';
-    public string $value = '';
+    public string $value;
 
     protected array $rules = [
-        'name' => 'required|string',
-        'email' => 'required|email',
+        'name' => 'required|string|max:255|min:3',
+        'email' => 'required|email|exists:users,email',
         'value' => 'required|numeric|min:0.01',
     ];
 
     protected array $messages = [
+        'name.required' => 'O campo nome é obrigatório.',
+        'name.string' => 'O campo nome deve ser uma string.',
+        'name.max' => 'O campo nome deve ter no máximo 255 caracteres.',
+        'name.min' => 'O campo nome deve ter no mínimo 3 caracteres.',
+
         'email.required' => 'O campo e-mail é obrigatório.',
         'email.email' => 'O campo e-mail deve ser um endereço de e-mail válido.',
+        'email.exists' => 'O e-mail informado não está cadastrado no sistema.',
+
         'value.required' => 'O campo valor é obrigatório.',
         'value.numeric' => 'O campo valor deve ser um número.',
         'value.min' => 'O valor mínimo para transferência é R$ 0,01.',
     ];
 
-    public function verifyUserSystem()
-    {
-        $recipientUser = User::where('email', $this->email)->first();
-
-        if (!$recipientUser){
-            $this->addError('email', 'Usuário não encontrado no sistema.');
-        }
-
-        return;
-    }
-
-    public function verifyBalanceUser()
-    {
-        $authUserBalance = auth()->user();
-
-        if ($this->value > $authUserBalance->balance) {
-            $this->addError('value', 'Saldo insuficiente para realizar a transferência.');
-        }
-
-        return;
-    }
-
     public function submit()
     {
         $this->validate();
+
+        $value = (float) str_replace(['.', ','], ['', '.'], $this->value);
 
         Transfer::create([
             'user_id' => auth()->user()->id,
             'name' => $this->name,
             'email' => $this->email,
-            'value' => $this->value,
+            'value' => $value,
         ]);
-
-        // DB::transaction(function () {
-        //     $recipientUser = User::where('email', $this->email)->first();
-
-        //     $this->verifyUserSystem();
-        //     $this->verifyBalanceUser();
-
-        //     $transfer = Transfer::create([
-        //         'user_id' => auth()->user()->id,
-        //         'name' => auth()->user()->name,
-        //         'email' => auth()->user()->email,
-        //         'value' => $this->value,
-        //         'recipient_id' => $recipientUser->id,
-        //     ]);
-
-        //     $authUserBalance->balance = $authUserBalance->balance - $this->value;
-        //     $authUserBalance->save();
-        // });
 
         session()->flash('message', 'Transferência realizada com sucesso!');
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
@@ -16,9 +17,20 @@ class Index extends Component
     }
 
     #[Computed]
-    public function hasBalance(): bool
+    public function userBalance(): User
     {
-        return auth()->user()->balances()->exists();
+        return auth()->user();
+    }
+
+    public function currentBalance(): float
+    {
+        return auth()->user()->balance;
+    }
+
+    #[Computed]
+    public function transfers(): Collection
+    {
+        return auth()->user()->transfers()->get();
     }
 
     public function render(): View

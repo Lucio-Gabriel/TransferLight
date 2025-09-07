@@ -8,9 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('balances', function (Blueprint $table) {
+        Schema::create('transfers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('email');
             $table->decimal('value', 10, 2)->default(null);
             $table->timestamps();
         });
@@ -18,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('balances');
+        Schema::dropIfExists('transfers');
     }
 };

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'user_type',
         'cpf',
+        'balance',
     ];
 
     /**
@@ -49,8 +50,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function balances(): HasMany
+    public function transfers(): HasMany
     {
-        return $this->hasMany(Balance::class);
+        return $this->hasMany(Transfer::class);
     }
 }

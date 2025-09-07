@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Balance;
 
-use App\Models\Balance;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -32,10 +31,10 @@ class Create extends Component
 
         $value = (float) str_replace(['.', ','], ['', '.'], $this->value);
 
-        Balance::create([
-            'value'   => $value,
-            'user_id' => auth()->id(),
-        ]);
+        $user = auth()->user();
+
+        $user->balance = $value;
+        $user->save();
 
         return redirect()->route('index-user');
     }

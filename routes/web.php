@@ -4,6 +4,7 @@ use App\Http\Middleware\CheckIsShopkeeper;
 use App\Http\Middleware\CheckIsUser;
 use App\Livewire\Balance\Create;
 use App\Livewire\Shopkeeper\Index;
+use App\Livewire\Transfer\Create as TransferCreate;
 use App\Livewire\User\Index as UserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('index/balance', Create::class)
         ->middleware(CheckIsUser::class)
         ->name('create.balance');
+
+    Route::get('index/transfer', TransferCreate::class)
+        ->middleware(CheckIsUser::class)
+        ->name('create.transfer');
 
     Route::get('index-shopkeeper', Index::class)
         ->middleware(CheckIsShopkeeper::class)

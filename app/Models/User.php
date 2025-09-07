@@ -50,11 +50,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function balances(): HasMany
-    {
-        return $this->hasMany(Balance::class);
-    }
-
     public function transfers(): HasMany
     {
         return $this->hasMany(Transfer::class);

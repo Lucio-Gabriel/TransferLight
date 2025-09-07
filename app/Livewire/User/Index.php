@@ -11,12 +11,6 @@ use Livewire\Component;
 class Index extends Component
 {
     #[Computed]
-    public function balances(): Collection
-    {
-        return auth()->user()->balances()->get();
-    }
-
-    #[Computed]
     public function userBalance(): User
     {
         return auth()->user();

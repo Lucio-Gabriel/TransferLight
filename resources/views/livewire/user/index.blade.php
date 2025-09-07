@@ -30,14 +30,6 @@
                 <div class="flex justify-between items-center p-6 text-gray-900">
                     <div>
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                            </div>
-                            <input type="text" wire:model.live="transferSearch" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-300 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome..." required />
-                        </div>
                     </div>
 
                     <div>
@@ -49,7 +41,7 @@
 
                 <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded-sm md:my-10 dark:bg-gray-700">
 
-                <h3 class="text-xl font-semibold mb-1 p-6 text-gray-900">Últimas Transferências</h3>
+                <h3 class="text-xl font-semibold mb-1 p-6 text-gray-900">Transferências Realizadas:</h3>
 
                 <div class="overflow-auto max-h-96">
                     @foreach ($this->transfers as $transfert)

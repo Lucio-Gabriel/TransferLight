@@ -26,4 +26,4 @@ it('should not be able to create a balance with empty value', function () {
         ->call('save')
         ->assertHasErrors(['value' => 'required']);
 });
-    
+

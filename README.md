@@ -35,7 +35,7 @@ Instale as bibliotecas:
     composer install && npm install
 ```
 
-Crie o banco de dados de exemplo (SQLITE):
+Crie o banco de dados de exemplo (MYSQL):
 
 ```bash
     composer create-test-database
